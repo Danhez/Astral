@@ -5,9 +5,27 @@
 
     let locale = localeFromDateFnsLocale(es)
     let date = new Date()
+
+    let registro = false;
+    let pregunta = ''
+    let respuesta;
+
+    async function onSubmit(){
+        registro = true;
+        const response = await fetch('/respuesta', {
+            method: 'POST',
+            body: JSON.stringify({pregunta}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        respuesta = await response.json();
+        console.log(respuesta)
+    }
+
 </script>
 
-    <div class=" flex flex-col my-32  max-w-md mx-auto bg-gray-100 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+    <div class=" {registro === true ? 'hidden': ''} flex flex-col my-32  max-w-md mx-auto bg-gray-100 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
         <form id="fpregunta" class="flex flex-col mx-2" action="?/query" method="post" use:enhance>
             <label class="mt-1" for="inombre">Nombre:</label>
             <input id="inombre" class="focus:outline-blue-500 text-lg rounded max-w py-1 mb-3 border border-black" name="nombre" autocomplete="off" required>
@@ -20,9 +38,12 @@
             <input id="icorreo" class="focus:outline-blue-500 text-lg rounded max-w py-1 mb-3 border border-black" name="correo" autocomplete="off" required>
             
             <label for="ipregunta">Pregunta:</label>
-            <input id="ipregunta" class="focus:outline-blue-500 text-lg rounded max-w py-1 mb-3 border border-black" name="pregunta" autocomplete="off" required>
+            <input id="ipregunta" bind:value={pregunta} class="focus:outline-blue-500 text-lg rounded max-w py-1 mb-3 border border-black" name="pregunta" autocomplete="off" required>
         </form>
-        <button class=" rounded bg-blue-200 px-3 py-1.5 text-sm font-semibold max-w pt-2 mb-3 mx-2" type="submit" form="fpregunta" value="Submit">Ok</button>
+        <button class=" rounded bg-blue-200 px-3 py-1.5 text-sm font-semibold max-w pt-2 mb-3 mx-2" type="submit" on:click={onSubmit} form="fpregunta" value="Submit">Ok</button>
     </div>
+
+
+    
 
 

@@ -36,9 +36,9 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@prisma/client": "^4.13.0",
+		"@prisma/client": "^4.16.1",
 		"date-fns": "^2.30.0",
 		"date-picker-svelte": "^2.4.3",
-		"openai": "^3.2.1"
+		"openai": "^3.3.0"
 	}
 }
